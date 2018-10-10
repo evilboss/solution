@@ -1,0 +1,41 @@
+{
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": true,
+    "freeze": [],
+    "ts": false
+  },
+  "app": {
+    "environmentsAllowingSeedData": "y",
+    "seedData": true,
+    "name": "querry-test",
+    "description": "Project querry-test",
+    "src": "src",
+    "packager": "yarn@>= 0.18.0",
+    "providers": [
+      "rest",
+      "socketio"
+    ]
+  },
+  "services": {
+    "testing": {
+      "name": "testing",
+      "nameSingular": "testing",
+      "subFolder": "",
+      "fileName": "testing",
+      "adapter": "nedb",
+      "path": "/api/testing",
+      "isAuthEntity": false,
+      "graphql": false
+    }
+  },
+  "hooks": {},
+  "connections": {
+    "nedb": {
+      "database": "nedb",
+      "adapter": "nedb",
+      "connectionString": "nedb://../data"
+    }
+  }
+}
