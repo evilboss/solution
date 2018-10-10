@@ -2,6 +2,8 @@
 const createService = require('feathers-nedb');
 const createModel = require('../../models/testing.model');
 const hooks = require('./testing.hooks');
+const hooks2 = require('./testing.test.hooks');
+
 // !code: imports // !end
 // !code: init // !end
 
@@ -11,24 +13,25 @@ let moduleExports = function (app) {
   // !code: func_init // !end
 
   let options = {
-    Model,
-    // !code: options_more // !end
+    Model
+    //code: options_more // !end
   };
-  // !code: options_change // !end
-  const newService = createService(options).extend({
-    find: (hook) => {
-      console.log(createService(options).getModel())
+  //code: options_change // !end
 
-    }
-  });
   // Initialize our service with any options it requires
-  app.use('/api/testing/test', newService);
+  app.use('/api/testing/test', createService(options));
 
   app.use('/api/testing', createService(options));
 
   // Get our initialized service so that we can register hooks
+  const service2 = app.service('api/testing/test');
+
   const service = app.service('api/testing');
+
+  service2.hooks(hooks2);
   service.hooks(hooks);
+
+
   // !code: func_return // !end
 };
 
