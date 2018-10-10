@@ -17,14 +17,24 @@ module.exports = function (options = {}) {
     const {user} = context.params;
     // Get the record(s) from context.data (before), context.result.data or context.result (after).
     // getItems always returns an array to simplify your processing.
-    const records = getItems(context);
+    let records = {};
+    const items = getItems(context);
+    if (Array.isArray(items)) {
+      items.forEach(item => {
+        if (item.latest) {
+          records = item;
+        }
+      });
+    } else {
+      items.code = 'code';
+    }
 
     /*
     Modify records and/or context.
      */
 
     // Place the modified records back in the context.
-    replaceItems(context, records[0]);
+    replaceItems(context, records);
     // Best practice: hooks should always return the context.
     return context;
   };
